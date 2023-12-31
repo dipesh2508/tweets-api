@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id String @id @default(cuid()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   email String @unique
   password String
@@ -19,7 +19,7 @@ model User {
 }  
 
 model Tweets {
-  id String @id @default(cuid()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   tweet String
   createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
