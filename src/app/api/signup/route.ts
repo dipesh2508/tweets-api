@@ -15,6 +15,14 @@ export const POST = async (req: Request) => {
 
     await connectToDb();
 
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+
+    if (existingUser)
+      return NextResponse.json(
+        { error: "User with this email already exists" },
+        { status: 422 }
+      );
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
       data: { name, email, password: hashedPassword },
